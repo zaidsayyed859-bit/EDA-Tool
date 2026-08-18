@@ -5,20 +5,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-# ============================================================
 # PAGE CONFIGURATION
-# ============================================================
-
 st.set_page_config(
     page_title="🧹 Data Cleaning & Analysis Tool",
     page_icon="🧹",
     layout="wide"
 )
 
-
-# ============================================================
 # CONSTANTS
-# ============================================================
 
 INVALID_VALUES = [
     "ERROR",
@@ -38,9 +32,7 @@ CATEGORY_MAP = {
 }
 
 
-# ============================================================
 # FILE LOADING
-# ============================================================
 
 def load_file(uploaded_file):
 
@@ -102,10 +94,7 @@ def load_file(uploaded_file):
         return None
 
 
-# ============================================================
 # NUMERIC COLUMN DETECTION
-# ============================================================
-
 def detect_numeric_columns(df, threshold=0.60):
 
     numeric_columns = []
@@ -137,9 +126,7 @@ def detect_numeric_columns(df, threshold=0.60):
     return numeric_columns
 
 
-# ============================================================
 # DATA TYPE DETECTION
-# ============================================================
 
 def detect_best_dtype(series):
 
@@ -201,9 +188,7 @@ def detect_best_dtype(series):
     return "text"
 
 
-# ============================================================
 # QUALITY REPORT
-# ============================================================
 
 def quality_report(df):
 
@@ -230,10 +215,7 @@ def quality_report(df):
     })
 
 
-# ============================================================
 # INVALID VALUE REPORT
-# ============================================================
-
 def invalid_value_report(df):
 
     results = []
@@ -277,10 +259,7 @@ def invalid_value_report(df):
 
     return pd.DataFrame(results)
 
-
-# ============================================================
 # REPLACE INVALID VALUES
-# ============================================================
 
 def replace_invalid_values(df):
 
@@ -314,9 +293,7 @@ def replace_invalid_values(df):
     return df
 
 
-# ============================================================
 # OUTLIER REPORT
-# ============================================================
 
 def outlier_report(df):
 
@@ -382,10 +359,7 @@ def outlier_report(df):
     return pd.DataFrame(results)
 
 
-# ============================================================
 # DATA QUALITY SCORE
-# ============================================================
-
 def data_quality_score(df):
 
     total_cells = df.size
@@ -460,10 +434,7 @@ def data_quality_score(df):
     )
 
 
-# ============================================================
 # QUALITY SCORE BREAKDOWN
-# ============================================================
-
 def quality_score_breakdown(df):
 
     total_cells = df.size
@@ -546,10 +517,7 @@ def quality_score_breakdown(df):
     }
 
 
-# ============================================================
 # OUTLIER ACTION
-# ============================================================
-
 def apply_outlier_action(
     df,
     col,
@@ -630,10 +598,7 @@ def apply_outlier_action(
     return df
 
 
-# ============================================================
 # CATEGORY MAPPING
-# ============================================================
-
 def smart_category_mapping(
     df,
     col
@@ -649,10 +614,7 @@ def smart_category_mapping(
     return df
 
 
-# ============================================================
 # SESSION STATE
-# ============================================================
-
 if "original_df" not in st.session_state:
 
     st.session_state.original_df = None
@@ -673,10 +635,7 @@ if "file_id" not in st.session_state:
     st.session_state.file_id = None
 
 
-# ============================================================
 # HEADER
-# ============================================================
-
 st.title(
     "🧹 Data Cleaning & Analysis Tool"
 )
@@ -687,10 +646,7 @@ st.caption(
 )
 
 
-# ============================================================
 # FILE UPLOAD
-# ============================================================
-
 uploaded = st.file_uploader(
 
     "📁 Upload CSV or Excel",
@@ -750,10 +706,7 @@ if uploaded is not None:
             st.stop()
 
 
-# ============================================================
 # STOP IF NO DATASET
-# ============================================================
-
 if (
     st.session_state.original_df
     is None
@@ -767,10 +720,7 @@ if (
     st.stop()
 
 
-# ============================================================
 # DATA REFERENCES
-# ============================================================
-
 original_df = (
     st.session_state.original_df
 )
@@ -780,10 +730,7 @@ cleaned_df = (
 )
 
 
-# ============================================================
 # TABS
-# ============================================================
-
 overview, quality, viz, cleaning = st.tabs([
 
     "📊 Overview",
@@ -797,10 +744,7 @@ overview, quality, viz, cleaning = st.tabs([
 ])
 
 
-# ============================================================
 # OVERVIEW TAB
-# ============================================================
-
 with overview:
 
     st.header(
@@ -885,10 +829,7 @@ with overview:
         )
 
 
-# ============================================================
 # QUALITY REPORT TAB
-# ============================================================
-
 with quality:
 
     st.header(
@@ -1063,10 +1004,7 @@ with quality:
     )
 
 
-# ============================================================
 # VISUALIZATION TAB
-# ============================================================
-
 with viz:
 
     st.header(
@@ -1074,10 +1012,7 @@ with viz:
     )
 
 
-    # ========================================================
     # MISSING VALUES
-    # ========================================================
-
     st.subheader(
         "1️⃣ Missing Values"
     )
@@ -1138,10 +1073,7 @@ with viz:
         )
 
 
-    # ========================================================
     # NUMERIC COLUMNS
-    # ========================================================
-
     st.subheader(
         "2️⃣ Numeric Distribution"
     )
@@ -1221,10 +1153,7 @@ with viz:
         )
 
 
-    # ========================================================
     # BOXPLOT
-    # ========================================================
-
     st.subheader(
         "3️⃣ Boxplot / Outlier Visualization"
     )
@@ -1283,10 +1212,7 @@ with viz:
         plt.close(fig)
 
 
-    # ========================================================
     # CATEGORY DISTRIBUTION
-    # ========================================================
-
     st.subheader(
         "4️⃣ Category Distribution"
     )
@@ -1374,10 +1300,7 @@ with viz:
         )
 
 
-    # ========================================================
     # PIE CHART
-    # ========================================================
-
     st.subheader(
         "5️⃣ Pie Chart"
     )
@@ -1433,10 +1356,7 @@ with viz:
         plt.close(fig)
 
 
-    # ========================================================
     # CORRELATION
-    # ========================================================
-
     st.subheader(
         "6️⃣ Correlation Matrix"
     )
@@ -1499,10 +1419,7 @@ with viz:
         )
 
 
-    # ========================================================
     # SUMMARY STATISTICS
-    # ========================================================
-
     st.subheader(
         "7️⃣ Summary Statistics"
     )
@@ -1551,10 +1468,7 @@ with viz:
         )
 
 
-    # ========================================================
     # CATEGORY FREQUENCY
-    # ========================================================
-
     st.subheader(
         "8️⃣ Category Frequency Analysis"
     )
@@ -1609,10 +1523,7 @@ with viz:
                 )
 
 
-# ============================================================
 # CLEANING TAB
-# ============================================================
-
 with cleaning:
 
     st.header(
